@@ -9,22 +9,27 @@ import static java.util.Collections.*;
 
 public class Thief {
 
-    private Backpack backpack;
+  private Backpack backpack;
 
-    public void setBackpack(Backpack backpack) {
-        this.backpack = backpack;
+  public void setBackpack(Backpack backpack) {
+    this.backpack = backpack;
+  }
+
+  public boolean stealThings(ArrayList<Thing> things) {
+    sort(things);
+    for (int i = things.size() - 1; i >= 0; i--) {
+      if (things.get(i).getWeight() <= backpack.getRestWeight()) {
+        System.out.println(" Thief stole " + things.get(i).getName() + " from the house.");
+        backpack.setRestWeight(backpack.getRestWeight() - things.get(i).getWeight());
+        System.out.println(" Current rest weight is " + backpack.getRestWeight());
+        things.remove(i);
+      }
     }
-
-    public void stealThings(ArrayList<Thing> things) {
-
-        Double restWeight = this.backpack.getLimitWeight();
-        sort(things);
-        for (int i = things.size() - 1; i >= 0; i--) {
-            if (things.get(i).getWeight() <= restWeight) {
-                System.out.println(" Thief stole " + things.get(i).getName() + " from the house.");
-                restWeight -= things.get(i).getWeight();
-            }
-        }
+    if (backpack.getLastRestWeight().compareTo(backpack.getRestWeight()) == 0) {
+      return false;
     }
+    backpack.setLastRestWeight(backpack.getRestWeight());
+    return true;
+  }
 
 }

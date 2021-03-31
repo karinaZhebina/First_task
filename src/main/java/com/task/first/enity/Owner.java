@@ -3,7 +3,7 @@ package com.task.first.enity;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 
-public class Owner {
+public class Owner extends Thread {
 
     private ArrayList<Thing> things = new ArrayList<Thing>();
 
